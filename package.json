@@ -31,9 +31,11 @@
   "homepage": "https://github.com/thong-6/nodejs-express#readme",
   "dependencies": {
     "dotenv": "16.4.7",
+    "ejs": "3.1.10",
     "express": "5.0.1"
   },
   "devDependencies": {
+    "@types/ejs": "3.1.5",
     "@types/express": "5.0.0",
     "@types/node": "22.10.7",
     "nodemon": "3.1.9",
