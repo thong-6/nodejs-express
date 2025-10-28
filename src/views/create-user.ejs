@@ -19,18 +19,18 @@
         <form action="/create-user" method="post">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" placeholder="your name">
+                <input name="fullName" type="text" class="form-control" placeholder="your name">
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="name@example.com">
+                <input name="email" type="email" class="form-control" placeholder="name@example.com">
             </div>
             <div class="mb-3">
                 <label class="form-label">Address</label>
-                <textarea class="form-control" rows="2"></textarea>
+                <textarea name="address" class="form-control" rows="2"></textarea>
             </div>
             <div class="mb-3">
-                <button class="btn btn-warning">Submit</button>
+                <button type="submit" class="btn-warning">Submit</button>
             </div>
         </form>
     </div>
