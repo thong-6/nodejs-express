@@ -14,9 +14,49 @@
 </head>
 
 <body>
-    <h1>Hello from thong from controllers</h1>
-    <!-- <img src="/images/hoidanit.png" /> -->
-    <a href="/create-user" class="btn btn-warning">Created a new user</a>
+    <div style="margin: 25;">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+            <h1>List Users:</h1>
+            <div>
+                <a href="/create-user" class="btn btn-warning">Created a new user</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <% users.forEach( function (user) { %>
+                    <tr>
+                        <td>
+                            <%= user.id %>
+                        </td>
+                        <td>
+                            <%= user.fullName %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.address %>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 
 </html>
