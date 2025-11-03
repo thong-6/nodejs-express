@@ -48,7 +48,15 @@
                             <%= user.address %>
                         </td>
                         <td>
-                            <button class="btn btn-danger">Delete</button>
+                            <div style="display: flex; width; gap: 10px">
+                                <form action="/view-user/<%=user.id%>" method="get">
+                                    <button type="submit" class="btn btn-warning">View </button>
+                                </form>
+                                <form action="/delete-user/<%=user.id%>" method="post">
+                                    <button type="submit" class="btn btn-danger">Delete </button>
+                                </form>
+                            </div>
+
                         </td>
                     </tr>
 
