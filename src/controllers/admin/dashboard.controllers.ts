@@ -1,10 +1,25 @@
 import { Request, Response } from "express";
+import { getAllUser } from "services/user.services";
 const getDashBoardAdmin = async (req: Request, res: Response) => {
 
     return res.render('admin/dashboard/show.ejs');
 }
 const getAdminUserPage = async (req: Request, res: Response) => {
-
-    return res.render('admin/user/show.ejs');
+    const users = await getAllUser();
+    return res.render('admin/user/show.ejs', {
+        users
+    });
 }
-export { getDashBoardAdmin, getAdminUserPage };
+
+const getAdminCreateUserPage = async (req: Request, res: Response) => {
+    return res.render('admin/user/create.ejs');
+}
+const getAdminOrderPage = async (req: Request, res: Response) => {
+
+    return res.render('admin/order/show.ejs');
+}
+const getAdminProductPage = async (req: Request, res: Response) => {
+
+    return res.render('admin/product/show.ejs');
+}
+export { getDashBoardAdmin, getAdminUserPage, getAdminOrderPage, getAdminProductPage, getAdminCreateUserPage };
