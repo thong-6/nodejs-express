@@ -3,8 +3,8 @@ import { prisma } from 'config/client'
 const handleCreateUser = async (fullName: string, email: string, address: string) => {
     const user = await prisma.user.create({
         data: {
-            name: fullName,
-            email: email,
+            fullName: fullName,
+            username: email,
             address: address,
         },
     })
@@ -24,8 +24,8 @@ const handleUpdateUser = async (id: string, fullName: string, email: string, add
             id: +id
         },
         data: {
-            name: fullName,
-            email: email,
+            fullName: fullName,
+            username: email,
             address: address
         },
     })
