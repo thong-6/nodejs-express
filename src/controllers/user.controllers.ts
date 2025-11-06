@@ -12,8 +12,8 @@ const getCreateNewUser = (req: Request, res: Response) => {
 }
 const postCreateNewUser = async (req: Request, res: Response) => {
     console.log(req.body);
-    const { fullName, email, address } = req.body;
-    await handleCreateUser(fullName, email, address);
+    const { fullName, username, phone, accountType, address } = req.body;
+    // await handleCreateUser(fullName, username, phone, accountType , address);
     return res.redirect('/');
 }
 const postDeleteUser = async (req: Request, res: Response) => {

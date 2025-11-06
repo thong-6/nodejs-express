@@ -34,6 +34,10 @@ const getAllUser = async () => {
     const users = await prisma.user.findMany();
     return users;
 }
+const getAllRole = async () => {
+    const roles = await prisma.role.findMany();
+    return roles;
+}
 const getDetailAUser = async (id: string) => {
     const user = await prisma.user.findUnique({
         where: {
@@ -43,4 +47,4 @@ const getDetailAUser = async (id: string) => {
     return user;
 }
 
-export { handleCreateUser, getAllUser, handleDeleteUser, getDetailAUser, handleUpdateUser };
+export { handleCreateUser, getAllUser, handleDeleteUser, getDetailAUser, handleUpdateUser, getAllRole };
