@@ -1,11 +1,27 @@
 
 import { prisma } from 'config/client'
-const handleCreateUser = async (fullName: string, email: string, address: string) => {
+import { ACCOUNT_TYPE } from 'config/constant'
+import bcrypt from "bcrypt";
+const saltRounds = 10;
+const hashPassWord = async (plainText: string) => {
+    return await bcrypt.hash(plainText, saltRounds);
+}
+const handleCreateUser = async (
+    fullName: string,
+    email: string,
+    phone: string,
+    address: string,
+    avatar: string) => {
+    const defaultHashPassWord = await hashPassWord("123456");
     const user = await prisma.user.create({
         data: {
             fullName: fullName,
             username: email,
+            phone: phone,
+            password: defaultHashPassWord,
+            accountType: ACCOUNT_TYPE.SYSTEM,
             address: address,
+            avatar: avatar
         },
     })
 }
@@ -47,4 +63,7 @@ const getDetailAUser = async (id: string) => {
     return user;
 }
 
-export { handleCreateUser, getAllUser, handleDeleteUser, getDetailAUser, handleUpdateUser, getAllRole };
+export {
+    handleCreateUser, getAllUser, handleDeleteUser, getDetailAUser, handleUpdateUser, getAllRole,
+    hashPassWord
+};
