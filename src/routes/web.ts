@@ -7,7 +7,6 @@ const router = express.Router();
 
 const webRoutes = (app: Express) => {
     router.get('/', getHomePage)
-    router.post('/update-user', postUpdateUser);
 
     //admin
     router.get('/admin', getDashBoardAdmin);
