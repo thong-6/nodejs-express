@@ -35,7 +35,7 @@ const handleDeleteUser = async (id: string) => {
         },
     })
 }
-const handleUpdateUser = async (id: string, fullName: string, email: string, address: string) => {
+const handleUpdateUser = async (id: string, fullName: string, username: string, address: string, roleId: string, phone: string, avatar: string) => {
 
     const updateUser = await prisma.user.update({
         where: {
@@ -43,8 +43,11 @@ const handleUpdateUser = async (id: string, fullName: string, email: string, add
         },
         data: {
             fullName: fullName,
-            username: email,
-            address: address
+            username: username,
+            address: address,
+            RoleId: +roleId,
+            phone: phone,
+            ...(avatar !== undefined && { avatar: avatar })
         },
     })
 }
