@@ -39,12 +39,41 @@
                                     <thead>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
+                                        <th>Price</th>
+                                        <th>Factory</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
+                                        <% products.forEach( function (product) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= product.id %>
+                                                </td>
+                                                <td>
+                                                    <%= product.name %>
+                                                </td>
+                                                <td>
+                                                    <%= product.price %>
+                                                </td>
+                                                <td>
+                                                    <%= product.factory %>
+                                                </td>
+                                                <td>
+                                                    <div style="display: flex; width; gap: 10px">
+                                                        <form action="/admin/view-product/<%=product.id%>" method="get">
+                                                            <button type="submit" class="btn btn-warning">View </button>
+                                                        </form>
+                                                        <form action="/admin/delete-product/<%=product.id%>"
+                                                            method="post">
+                                                            <button type="submit" class="btn btn-danger">Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
 
+                                                </td>
+                                            </tr>
+
+                                            <% }) %>
                                     </tbody>
                                 </table>
                             </div>

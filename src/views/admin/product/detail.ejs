@@ -41,28 +41,22 @@
 
                                 <div class="col-6 mx-auto">
                                     <div style="width: 600; margin: auto">
-                                        <% errors.forEach( function (error) { %>
-                                            <div class="alert alert-danger mb-3">
-                                                <%=error%>
-                                            </div>
-
-                                            <% }) %>
-                                                <h3 style="padding: 10px 0;">Create new Products:</h3>
+                                        <h3 style="padding: 10px 0;">Create new Products:</h3>
 
                                     </div>
-                                    <form action="/admin/create-product" method="post" enctype="multipart/form-data">
-
+                                    <form action="/admin/update-product" method="post" enctype="multipart/form-data">
+                                        <input value="<%= product.id %>" name="id" type="text" style="display: none;">
 
                                         <div class="row">
                                             <div class="mv-3 col-6">
                                                 <label class="form-label">Name</label>
-                                                <input value="<%=data.name%>" name="name" type="text"
+                                                <input value="<%=product.name%>" name="name" type="text"
                                                     class="form-control">
                                             </div>
                                             <div class="mb-3 col-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Price</label>
-                                                    <input value="<%=data.price%>" name="price" type="number"
+                                                    <input value="<%=product.price%>" name="price" type="number"
                                                         class="form-control">
                                                 </div>
                                             </div>
@@ -70,18 +64,18 @@
                                         <div class="mb-3">
                                             <label class="form-label">Detail description</label>
                                             <textarea name="detailDesc" class="form-control"
-                                                rows="2"><%=data.detailDesc%></textarea>
+                                                rows="2"><%=product.detailDesc%></textarea>
                                         </div>
                                         <div class="row">
                                             <div class="mv-3 col-6">
                                                 <label class="form-label">Short description</label>
-                                                <input value="<%=data.shortDesc%>" name="shortDesc" type="text"
+                                                <input value="<%=product.shortDesc%>" name="shortDesc" type="text"
                                                     class="form-control">
                                             </div>
                                             <div class="mb-3 col-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Quantity</label>
-                                                    <input value="<%=data.quantity%>" name="quantity" type="number"
+                                                    <input value="<%=product.quantity%>" name="quantity" type="number"
                                                         class="form-control">
                                                 </div>
                                             </div>
@@ -90,39 +84,47 @@
                                             <div class="mb-3 col-6">
                                                 <label class="form-label">Factory</label>
                                                 <select name="factory" class="form-select">
-                                                    <option value="APPLE">Apple (MacBook)</option>
-                                                    <option value="ASUS">Asus</option>
-                                                    <option value="LENOVO">Lenovo</option>
-                                                    <option value="DELL">Dell</option>
-                                                    <option value="LG">LG</option>
-                                                    <option value="ACER">Acer</option>
+                                                    <% factoryOptions.forEach((factoryOption,index)=> { %>
+                                                        <option value="<%-factoryOption.name %>"
+                                                            <%=factoryOption.value===product.factory ? 'selected' : ''
+                                                            %>
+
+                                                            >
+                                                            <%- factoryOption.name %>
+                                                        </option>
+                                                        <%})%>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-6">
                                                 <label class="form-label">Target</label>
                                                 <select name="target" class="form-select">
-                                                    <option value="GAMING">Gaming</option>
-                                                    <option value="SINHVIEN-VANPHONG">Sinh viên - Văn phòng
-                                                    </option>
-                                                    <option value="THIET-KE-DO-HOA">Thiết kế đồ họa</option>
-                                                    <option value="MONG-NHE">Mỏng nhẹ</option>
-                                                    <option value="DOANH-NHAN">Doanh nhân</option>
+                                                    <% targetOptions.forEach((targetOption,index)=> { %>
+                                                        <option value="<%-targetOption.name %>"
+                                                            <%=targetOption.value===product.target ? 'selected' : '' %>
+
+                                                            >
+                                                            <%- targetOption.name %>
+                                                        </option>
+                                                        <%})%>
                                                 </select>
                                             </div>
                                         </div>
-
-
                                         <div class="mb-3">
+
                                             <label for="formFile" class="form-label">Image</label>
                                             <input name="image" class="form-control" type="file" id="avatarFile"
                                                 accept=".png, .jpg, .jpeg">
                                         </div>
-                                        <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                            id="avatarPreview" />
-
-                                        <div class="mb-3">
-                                            <button type="submit" class="btn btn-warning">Submit</button>
-                                        </div>
+                                        <% if (product.image) { %>
+                                            <img style="max-height: 250px; display: block;" alt="avatar preview"
+                                                id="avatarPreview" src="/images/product/<%=product.image%>" />
+                                            <% } else { %>
+                                                <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                                    id="avatarPreview" />
+                                                <% } %>
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-warning">Submit</button>
+                                                    </div>
                                     </form>
                                 </div>
 

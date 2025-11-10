@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `products` MODIFY `sold` INTEGER NOT NULL DEFAULT 0;
