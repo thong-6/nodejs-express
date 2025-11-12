@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
-import { getAllRole, getAllUser, getDetailAUser, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.services";
+import { getProduct } from "services/client/item.service";
+import { getAllRole, getDetailAUser, handleCreateUser, handleDeleteUser, handleUpdateUser } from "services/user.services";
 const getHomePage = async (req: Request, res: Response) => {
-    return res.render('client/home/show.ejs');
+    const products = await getProduct();
+    return res.render('client/home/show.ejs', {
+        products
+    });
 }
 const getCreateNewUser = async (req: Request, res: Response) => {
     const roles = await getAllRole();

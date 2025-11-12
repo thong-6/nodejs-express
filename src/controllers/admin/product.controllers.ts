@@ -14,6 +14,7 @@ const getCreateNewProduct = async (req: Request, res: Response) => {
         factory: "",
         target: ""
     }
+
     return res.render('admin/product/create.ejs', {
         errors, data
     });
@@ -39,7 +40,7 @@ const postCreateNewProduct = async (req: Request, res: Response) => {
     return res.redirect('/admin/product');
 }
 const postUpdateProduct = async (req: Request, res: Response) => {
-    const { id, name, price, detailDesc, shortDesc, quantity, factory, target } = req.body;
+    const { id, name, price, detailDesc, shortDesc, quantity, factory, target } = req.body as TProductSchema;
     const file = req.file;
     const image = file?.filename ?? undefined;
     await handleUpdateProduct(id, name, price, detailDesc, shortDesc, quantity, factory, target, image);
