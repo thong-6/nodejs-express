@@ -30,8 +30,12 @@ const postRegisterPage = async (req: Request, res: Response) => {
     await registerNewUser(fullName, username, password);
     return res.redirect('/login');
 }
-const getLoginPage = (req: Request, res: Response) => {
-    return res.render('client/auth/login.ejs')
+const getLoginPage = async (req: Request, res: Response) => {
+    const { session } = req as any;
+    const messages = session?.messages ?? []
+    return res.render('client/auth/login.ejs', {
+        messages
+    })
 }
 export {
     getRegisterPage, getLoginPage, postRegisterPage

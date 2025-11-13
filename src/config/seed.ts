@@ -35,7 +35,7 @@ const initDatabase = async () => {
                 [
                     {
                         fullName: "Tohuythong",
-                        username: "thong123",
+                        username: "thong123@gmail.com",
                         password: defaultHashPassWord,
                         accountType: ACCOUNT_TYPE.SYSTEM,
                         address: "vietnam",
@@ -44,7 +44,7 @@ const initDatabase = async () => {
                     },
                     {
                         fullName: "Tothong",
-                        username: "thong69",
+                        username: "thong69@gmail.com",
                         password: defaultHashPassWord,
                         accountType: ACCOUNT_TYPE.SYSTEM,
                         address: "haiduong",
