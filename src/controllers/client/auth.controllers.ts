@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { registerNewUser } from "services/client/auth.service";
+import { NextFunction, Request, Response } from "express";
+import { getUserWithRoleById, registerNewUser } from "services/client/auth.service";
 import { RegisterSchema, TRegisterSchema } from "src/validations/register.schema";
 const getRegisterPage = (req: Request, res: Response) => {
     const data = {
@@ -37,6 +37,22 @@ const getLoginPage = async (req: Request, res: Response) => {
         messages
     })
 }
+
+const getRedirect = async (req: Request, res: Response) => {
+    const user = req.user as any;
+    if (user?.role?.name === "ADMIN") {
+        return res.redirect('/admin');
+    }
+    else return res.redirect('/');
+}
+
+const postLogout = (req: Request, res: Response, next: NextFunction) => {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+}
+
 export {
-    getRegisterPage, getLoginPage, postRegisterPage
+    getRegisterPage, getLoginPage, postRegisterPage, getRedirect, postLogout
 }
