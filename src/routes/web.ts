@@ -3,7 +3,7 @@ import express, { Express } from "express";
 import { getCreateNewUser, getHomePage, getViewUser, postCreateNewUser, postDeleteUser, postUpdateUser } from "controllers/user.controllers";
 import { getAdminOrderPage, getAdminProductPage, getAdminUserPage, getDashBoardAdmin } from "controllers/admin/dashboard.controllers";
 import fileUploadMiddleware from "src/middleware/multer";
-import { getDetailProductPage } from "controllers/client/product.controllers";
+import { getCartPage, getDetailProductPage, postAddProductToCart } from "controllers/client/product.controllers";
 import { getCreateNewProduct, getViewProduct, postCreateNewProduct, postDeleteProduct, postUpdateProduct } from "controllers/admin/product.controllers";
 import { getLoginPage, getRedirect, getRegisterPage, postLogout, postRegisterPage } from "controllers/client/auth.controllers";
 import passport from "passport";
@@ -44,6 +44,9 @@ const webRoutes = (app: Express) => {
 
     //order
     router.get('/admin/order', getAdminOrderPage);
+    //cart
+    router.get('/cart', getCartPage);
+    router.post('/add-product-to-cart/:id', postAddProductToCart);
     app.use('/', isAdmin, router);
 }
 export default webRoutes;
