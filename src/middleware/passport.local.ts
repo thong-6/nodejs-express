@@ -21,7 +21,7 @@ const configPassport = () => {
         }
         const isMatch = await comparePassword(password, user.password);
         if (!isMatch) return cb(null, false, { message: `Username or password invalid` });
-        return cb(null, user);
+        return cb(null, user as any);
     }))
     passport.serializeUser(function (user: any, cb) {
         cb(null, { id: user.id, username: user.username });

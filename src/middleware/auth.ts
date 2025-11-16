@@ -10,7 +10,7 @@ const isLogin = (req: Request, res: Response, next: NextFunction) => {
 
 const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     if (req.path.startsWith('/admin')) {
-        const user = req.user as any;
+        const user = req.user;
         if (user?.role?.name === "ADMIN") {
             next();
 
