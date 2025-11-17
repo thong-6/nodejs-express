@@ -1,5 +1,6 @@
+import { prisma } from "config/client";
 import { Request, Response } from "express";
-import { addProductToCart, getDetailCart, getProductById } from "services/client/item.service";
+import { addProductToCart, deleteProductCart, getDetailCart, getProductById, handlePlaceOrder } from "services/client/item.service";
 const getDetailProductPage = async (req: Request, res: Response) => {
     const { id } = req.params;
     const product = await getProductById(+id);
@@ -28,7 +29,40 @@ const getCartPage = async (req: Request, res: Response) => {
     });
 }
 
+const postDeleteProductToCart = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await deleteProductCart(+id);
+
+    return res.redirect('/cart')
+}
+
+const getCheckoutPage = async (req: Request, res: Response) => {
+    const { id } = req.user;
+    const detailCartsProducts = await getDetailCart(id)
+    const totalPrice = detailCartsProducts.map(item => item.price).reduce((a, b) => a + b, 0)
+    return res.render('client/product/checkout.ejs', {
+        detailCartsProducts, totalPrice
+    });
+}
+
+const getPlaceOrderPage = async (req: Request, res: Response) => {
+    const user = req.user
+    const { receiverName, receiverPhone, receiverAddress, totalPrice } = req.body
+    if (user) {
+        await handlePlaceOrder(+user.id, receiverAddress, receiverName, receiverPhone, +totalPrice)
+        res.redirect('/thank-you')
+    }
+
+    return res.redirect('/thank-you')
+}
+const getThanksPage = async (req: Request, res: Response) => {
+
+
+    return res.render('client/product/thanks.ejs')
+}
+
+
 export {
-    getDetailProductPage,
-    postAddProductToCart, getCartPage
+    getDetailProductPage, getPlaceOrderPage, getThanksPage,
+    postAddProductToCart, getCartPage, postDeleteProductToCart, getCheckoutPage
 }
