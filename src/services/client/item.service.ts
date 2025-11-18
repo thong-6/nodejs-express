@@ -131,30 +131,60 @@ const handlePlaceOrder = async (
 
         })
     ) ?? []
-    await prisma.order.create({
-        data: {
-            totalPrice: totalPrice,
-            paymentMethod: "COD",
-            paymentStatus: "PAYMENT_UNPAID",
-            paymentRef: "",
-            receiverAddress: receiverAddress,
-            receiverName: receiverName,
-            receiverPhone: receiverPhone,
-            status: "PENDING",
-            userId: id,
-            orderDetails: {
-                create: dataCart
+    return prisma.$transaction(async (tx) => {
+        for (var i = 0; i < dataCart.length; i++) {
+            const product = await tx.product.findFirst({
+                where: {
+                    id: dataCart[i].productId
+                }
+            })
+            if (!product || product.quantity < dataCart[i].quantity) {
+                throw new Error(`Sản phẩm ${product.name} trong kho không đủ`)
+            }
+            else {
+                await tx.product.update({
+                    where: {
+                        id: product.id
+                    },
+                    data:
+                    {
+                        quantity: {
+                            decrement: dataCart[i].quantity
+                        },
+                        sold: {
+                            increment: dataCart[i].quantity
+                        }
+                    }
+
+                })
             }
         }
+        await tx.order.create({
+            data: {
+                totalPrice: totalPrice,
+                paymentMethod: "COD",
+                paymentStatus: "PAYMENT_UNPAID",
+                paymentRef: "",
+                receiverAddress: receiverAddress,
+                receiverName: receiverName,
+                receiverPhone: receiverPhone,
+                status: "PENDING",
+                userId: id,
+                orderDetails: {
+                    create: dataCart
+                }
+            }
+        })
+        await tx.cartDetail.deleteMany({
+            where: {
+                cartId: cart.id
+            }
+        })
+        await tx.cart.delete({
+            where: { userId: id }
+        })
     })
-    await prisma.cartDetail.deleteMany({
-        where: {
-            cartId: cart.id
-        }
-    })
-    await prisma.cart.delete({
-        where: { userId: id }
-    })
+
 
 }
 
